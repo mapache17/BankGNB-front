@@ -1,5 +1,5 @@
 import { Layout, theme, Typography} from 'antd';
-import { Button, Form, InputNumber, } from 'antd';
+import { Button, Form, InputNumber} from 'antd';
 import React from 'react';
 const { Title } = Typography;
 const { Content } = Layout;

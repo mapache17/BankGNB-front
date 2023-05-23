@@ -1,11 +1,14 @@
 import { ConfigProvider } from 'antd';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { RocketOutlined, UserOutlined, CreditCardOutlined, UserAddOutlined, UsergroupDeleteOutlined, IdcardOutlined, PlusSquareOutlined, DollarOutlined, VerticalAlignTopOutlined, RetweetOutlined} from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme, Typography, Image, Avatar, Space} from 'antd';
 import React from 'react';
 import DepositMoney from '../transaction/DepositAccount';
-//import CreateUser from '../user/CreateUser';
-//import CreateAcc from '../account/CreateAccount';
-//import TransferMoney from '../transaction/Transference';
+import CheckBalance from '../account/CheckFunds';
+import UserAccounts from '../user/UserAccounts';
+import AllUsers from '../user/GetUsers';
+import CreateUser from '../user/CreateUser';
+import CreateAcc from '../account/CreateAccount';
+import TransferMoney from '../transaction/Transference';
 const { Text} = Typography;
 const { Header, Sider} = Layout;
 
@@ -14,21 +17,25 @@ const items1 = ['1', '2'].map((key) => ({
   key,
   label: `nav ${key}`,
 }));
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
+const items2 = [
+    {
+      label: "User",
+      key: "user",
+      icon: <UserOutlined />,
+      children: [{ label: "Create user", key: 1 ,icon: <UserAddOutlined />}, { label: "Get users", key: 2 ,icon: <UsergroupDeleteOutlined />}, { label: "User accounts", key: 3 ,icon: <IdcardOutlined />}],
+    }, 
+    {
+        label: "Account",
+        key: "account",
+        icon: <CreditCardOutlined />,
+        children: [{ label: "Create account", key: 4 ,icon: <PlusSquareOutlined />}, { label: "Check balance", key: 5 ,icon: <DollarOutlined />}],
+    }, 
+    {
+        label: "Transaction",
+        key: "transaction",
+        icon: <RocketOutlined />,
+        children: [{ label: "Deposit money", key: 6 ,icon: <VerticalAlignTopOutlined />}, { label: "Transfer money", key: 7 ,icon: <RetweetOutlined />}],
+    }]
 
 const BankHome = () => {
     const {
@@ -101,7 +108,12 @@ const BankHome = () => {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
 
-            <DepositMoney></DepositMoney>
+            {({ getKey }) =>
+          getFieldValue('items2') === '1' ? (
+            <CreateUser></CreateUser>
+          ) : null
+        }
+            <AllUsers></AllUsers>
 
           </Layout>
         </Layout>
