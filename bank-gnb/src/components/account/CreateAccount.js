@@ -44,9 +44,6 @@ const CreateAcc = () => {
     onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
-    <Form.Item label="Account ID" name="id" rules={[{ required: true }]}>
-        <InputNumber />
-    </Form.Item>
 
     <Form.Item label="Account Type" name="type" rules={[{ required: true }]}>
         <Select>

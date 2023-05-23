@@ -2,9 +2,10 @@ import { ConfigProvider } from 'antd';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme, Typography, Image, Avatar, Space} from 'antd';
 import React from 'react';
-import CreateAcc from '../account/CreateAccount';
-const { Title , Text} = Typography;
-const { Header, Content, Sider} = Layout;
+// import CreateAcc from '../account/CreateAccount';
+import TransferMoney from '../transaction/Transference';
+const { Text} = Typography;
+const { Header, Sider} = Layout;
 
 
 const items1 = ['1', '2'].map((key) => ({
@@ -98,7 +99,7 @@ const BankHome = () => {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
 
-            <CreateAcc></CreateAcc>
+            <TransferMoney></TransferMoney>
 
           </Layout>
         </Layout>
