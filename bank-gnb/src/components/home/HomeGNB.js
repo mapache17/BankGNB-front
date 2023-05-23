@@ -2,8 +2,9 @@ import { ConfigProvider } from 'antd';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme, Typography, Image, Avatar, Space} from 'antd';
 import React from 'react';
-// import CreateAcc from '../account/CreateAccount';
-import TransferMoney from '../transaction/Transference';
+import CreateUser from '../user/CreateUser';
+//import CreateAcc from '../account/CreateAccount';
+//import TransferMoney from '../transaction/Transference';
 const { Text} = Typography;
 const { Header, Sider} = Layout;
 
@@ -99,7 +100,7 @@ const BankHome = () => {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
 
-            <TransferMoney></TransferMoney>
+            <CreateUser></CreateUser>
 
           </Layout>
         </Layout>

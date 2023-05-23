@@ -1,5 +1,5 @@
 import { Layout, theme, Typography} from 'antd';
-import { Button, Form, InputNumber, } from 'antd';
+import { Button, Form, InputNumber, Input, DatePicker } from 'antd';
 import React from 'react';
 const { Title } = Typography;
 const { Content } = Layout;
@@ -44,20 +44,20 @@ const CreateUser = () => {
     onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
-    <Form.Item label="Transaction ID" name="id" rules={[{ required: true }]}>
+    <Form.Item label="Document" name="document" rules={[{ required: true }]}>
         <InputNumber />
     </Form.Item>
 
-    <Form.Item label="Origin Account" name="origen" rules={[{ required: true }]}>
-        <InputNumber />
+    <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+        <Input />
+    </Form.Item>
+
+    <Form.Item name="lastName" label="Last name" rules={[{ required: true }]}>
+        <Input />
     </Form.Item>
     
-    <Form.Item label="Destination Account" name="destination" rules={[{ required: true }]}>
-        <InputNumber />
-    </Form.Item>
-
-    <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
-        <InputNumber />
+    <Form.Item label="Date created" name="dateCreated" rules={[{ required: true }]}>
+          <DatePicker />    
     </Form.Item>
 
 
