@@ -1,19 +1,34 @@
 import { Layout, theme, Typography} from 'antd';
 import { Button, Form, InputNumber} from 'antd';
 import React from 'react';
-const { Title } = Typography;
+const { Title , Text} = Typography;
 const { Content } = Layout;
+import axios from "axios";
+import { useState } from 'react';
 
 
-const onFinish = (values) => {
-    console.log('Success:', values);
+const UserAccounts = () => {
+  const [userAccounts, setUserAccounts] = useState(null);
+
+  async function onFinish(idDocument) {
+    console.log('Success:', idDocument);
+
+    const client = axios.create({
+      baseURL: 'https://reqres.in/',
+
+    });
+    const response = await client.post(
+      "/api/users", idDocument
+
+    );
+    console.log("Hola", response);
+    setUserAccounts(response.data);
+
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-
-const UserAccounts = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -60,7 +75,18 @@ const UserAccounts = () => {
       </Button>
     </Form.Item>
   </Form>
-      
+  {userAccounts ? (
+      <div>
+        <Text>Users accounts:</Text>
+        {userAccounts.map((account) => (
+          <div key={account.id}>
+            <Text>{account.type}</Text>
+
+          </div>
+        ))}
+      </div>
+    ) : null}
+    
     </Content>
     </div>
   )

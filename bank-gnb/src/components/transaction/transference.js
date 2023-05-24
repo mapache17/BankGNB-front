@@ -1,24 +1,60 @@
 import { Layout, theme, Typography} from 'antd';
-import { Button, Form, InputNumber, } from 'antd';
+import { Button, Form, InputNumber, notification } from 'antd';
 import React from 'react';
-const { Title } = Typography;
+import axios from "axios";
+import { useState } from 'react';
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 
-const onFinish = (values) => {
+const TransferMoney = () => {
+  const [api, contextHolder] = notification.useNotification();
+  const [transferenceItems, setTransferenceItems] = useState(null);
+
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
+  async function onFinish(values) {
     console.log('Success:', values);
+    const { id, origen, destination, amount } = values;
+
+    const body = {
+      id, 
+      origen, 
+      destination, 
+      amount
+    };
+
+    console.log(body.id);
+
+    const client = axios.create({
+      baseURL: 'https://reqres.in/',
+
+    });
+    const response = await client.post(
+      "/api/users", body
+
+    );
+    console.log("Hola", response);
+if (response.data!=null) {
+  
+    api.info({
+      message: `Notification `,
+      description:  `Transference ${id} was made correctly!`,
+    });
+    setTransferenceItems(response.data);
+
+  }
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-
-const TransferMoney = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
   return (
     <div>
+    {contextHolder}
     <Title level={2}>Realizar una transferencia</Title>
     <Content
       style={{
@@ -72,7 +108,25 @@ const TransferMoney = () => {
       </Button>
     </Form.Item>
   </Form>
-      
+  {transferenceItems?(
+          <>
+          <div>
+          <Title level={4}>Transference items: </Title>
+          </div>
+          <div>
+          <Text>id: {transferenceItems.id}</Text>
+          </div>
+          <div>
+          <Text>origin: {transferenceItems.origen}</Text>
+          </div>
+          <div>
+          <Text>destination: {transferenceItems.destination}</Text>
+          </div>
+          <div>
+          <Text>amount: {transferenceItems.amount}</Text>
+          </div>
+          </>
+        ):null}
     </Content>
     </div>
   )

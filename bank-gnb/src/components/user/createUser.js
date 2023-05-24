@@ -42,17 +42,17 @@ if (response.data!=null) {
   
     api.info({
       message: `Notification `,
-      description:  `Usuario ${name} creado correctamente!`,
+      description:  `User ${name} created successfully!`,
     });
     setUserInfo(response.data);
 
   }
   };
+
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-
-
 
 
   return (
@@ -113,11 +113,21 @@ if (response.data!=null) {
         </Form>
         {userInfo?(
           <>
-          <Text>User created: </Text>
-          <Text>{userInfo.document}</Text>
-          <Text>{userInfo.names}</Text>
-          <Text>{userInfo.lastName}</Text>
-          <Text>{userInfo.datereated}</Text>
+          <div>
+          <Title level={4}>User created: </Title>
+          </div>
+          <div>
+          <Text>Document: {userInfo.document}</Text>
+          </div>
+          <div>
+          <Text>Name: {userInfo.name}</Text>
+          </div>
+          <div>
+          <Text>Last name: {userInfo.lastName}</Text>
+          </div>
+          <div>
+          <Text>Date created: {userInfo.dateCreated}</Text>
+          </div>
           </>
         ):null}
 

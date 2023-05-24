@@ -7,12 +7,6 @@ import { useState } from 'react';
 const { Title , Text} = Typography;
 const { Content } = Layout;
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
 
 
 const AllUsers = () => {
@@ -20,23 +14,21 @@ const AllUsers = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-
   const [users, setUsers] = useState(null);
 
-  async function testClick (){
+  async function getAllUsers (){
     const client = axios.create({
       baseURL: 'https://reqres.in/',
-      
     });
-
     const response = await client.get(
       "api/products/3"
     );
     setUsers(response.data);
-    console.log("PROGRAM---->", response.data);
+    console.log("User data", response.data);
   };
   return (
     <div>
+      
     <Title level={2}>Visualizar usuarios</Title>
     <Content
       style={{
@@ -47,9 +39,10 @@ const AllUsers = () => {
         borderRadius:14,
       }}
     >
-    <Button type="primary" onClick={testClick}>Ver usuarios</Button>
-    <Text>hola { users?users.data.color:"Null"}</Text>
+    <Button type="primary" onClick={getAllUsers}>Ver usuarios</Button>
     </Content>
+    
+    <Text>Users:{users?users.data.color:"Null"}</Text>
     </div>
   )
 };

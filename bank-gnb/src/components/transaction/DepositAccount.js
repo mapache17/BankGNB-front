@@ -1,24 +1,59 @@
 import { Layout, theme, Typography} from 'antd';
-import { Button, Form, InputNumber} from 'antd';
+import { Button, Form, InputNumber, notification} from 'antd';
 import React from 'react';
-const { Title } = Typography;
+import axios from "axios";
+import { useState } from 'react';
+const { Title, Text } = Typography;
 const { Content } = Layout;
+  
 
+const DepositMoney = () => {
+  const [api, contextHolder] = notification.useNotification();
+  const [depositItems, setDepositItems] = useState(null);
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-  };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-
-const DepositMoney = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  async function onFinish(values) {
+    console.log('Success:', values);
+    const { moneyAmount, accountNumber} = values;
+
+    const body = {
+      moneyAmount, 
+      accountNumber
+    };
+
+    console.log(body.moneyAmount);
+
+    const client = axios.create({
+      baseURL: 'https://reqres.in/',
+
+    });
+    const response = await client.post(
+      "/api/users", body
+
+    );
+    console.log("Hola", response);
+if (response.data!=null) {
+  
+    api.info({
+      message: `Notification `,
+      description:  `Deposit to ${accountNumber} was successful!`,
+    });
+    setDepositItems(response.data);
+
+  }
+  };
+
+
   return (
     <div>
+    {contextHolder}
     <Title level={2}>Realizar un depósito</Title>
     <Content
       style={{
@@ -64,7 +99,19 @@ const DepositMoney = () => {
       </Button>
     </Form.Item>
   </Form>
-      
+  {depositItems?(
+          <>
+          <div>
+          <Title level={4}>Deposit information: </Title>
+          </div>
+          <div>
+          <Text>Money amount: {depositItems.moneyAmount}</Text>
+          </div>
+          <div>
+          <Text>account number: {depositItems.accountNumber}</Text>
+          </div>
+          </>
+        ):null}
     </Content>
     </div>
   )
