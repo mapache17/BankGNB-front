@@ -1,9 +1,11 @@
 import { Layout, theme, Typography} from 'antd';
 import { Button} from 'antd';
 import React from 'react';
-const { Title } = Typography;
-const { Content } = Layout;
+import axios from "axios";
+import { useState } from 'react';
 
+const { Title , Text} = Typography;
+const { Content } = Layout;
 
 const onFinish = (values) => {
     console.log('Success:', values);
@@ -17,6 +19,22 @@ const AllUsers = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+
+  const [users, setUsers] = useState(null);
+
+  async function testClick (){
+    const client = axios.create({
+      baseURL: 'https://reqres.in/',
+      
+    });
+
+    const response = await client.get(
+      "api/products/3"
+    );
+    setUsers(response.data);
+    console.log("PROGRAM---->", response.data);
+  };
   return (
     <div>
     <Title level={2}>Visualizar usuarios</Title>
@@ -29,7 +47,8 @@ const AllUsers = () => {
         borderRadius:14,
       }}
     >
-    <Button type="primary">Ver usuarios</Button>
+    <Button type="primary" onClick={testClick}>Ver usuarios</Button>
+    <Text>hola { users?users.data.color:"Null"}</Text>
     </Content>
     </div>
   )

@@ -9,6 +9,7 @@ import AllUsers from '../user/GetUsers';
 import CreateUser from '../user/CreateUser';
 import CreateAcc from '../account/CreateAccount';
 import TransferMoney from '../transaction/Transference';
+import { useState } from 'react';
 const { Text} = Typography;
 const { Header, Sider} = Layout;
 
@@ -25,7 +26,7 @@ const items2 = [
       children: [{ label: "Create user", key: 1 ,icon: <UserAddOutlined />}, { label: "Get users", key: 2 ,icon: <UsergroupDeleteOutlined />}, { label: "User accounts", key: 3 ,icon: <IdcardOutlined />}],
     }, 
     {
-        label: "Account",
+        label: "Account", 
         key: "account",
         icon: <CreditCardOutlined />,
         children: [{ label: "Create account", key: 4 ,icon: <PlusSquareOutlined />}, { label: "Check balance", key: 5 ,icon: <DollarOutlined />}],
@@ -37,10 +38,17 @@ const items2 = [
         children: [{ label: "Deposit money", key: 6 ,icon: <VerticalAlignTopOutlined />}, { label: "Transfer money", key: 7 ,icon: <RetweetOutlined />}],
     }]
 
-const BankHome = () => {
+
+
+const HomeGNB = () => {
     const {
       token: { colorBgContainer },
     } = theme.useToken();
+    const handleMenuClick = ({ key }) => {
+      setSelectedSection(key);
+      console.log(key);
+    };
+    const [selectedSection, setSelectedSection] = useState('1');
     return (
       
       <ConfigProvider
@@ -89,6 +97,7 @@ const BankHome = () => {
                 borderRight: 0,
                 background: "#b7deca",
               }}
+              onClick={handleMenuClick}
               items={items2}
             />
           </Sider>
@@ -108,12 +117,13 @@ const BankHome = () => {
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
 
-            {({ getKey }) =>
-          getFieldValue('items2') === '1' ? (
-            <CreateUser></CreateUser>
-          ) : null
-        }
-            <AllUsers></AllUsers>
+            {selectedSection === '1' && <CreateUser />}
+            {selectedSection === '2' && <AllUsers />}
+            {selectedSection === '3' && <UserAccounts />}
+            {selectedSection === '4' && <CreateAcc />}
+            {selectedSection === '5' && <CheckBalance />}
+            {selectedSection === '6' && <DepositMoney />}
+            {selectedSection === '7' && <TransferMoney />}
 
           </Layout>
         </Layout>
@@ -121,4 +131,4 @@ const BankHome = () => {
       </ConfigProvider>
     );
   };
-  export default BankHome;
+  export default HomeGNB;
