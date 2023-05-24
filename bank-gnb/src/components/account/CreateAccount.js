@@ -1,24 +1,63 @@
 import { Layout, theme, Typography} from 'antd';
-import { Button, Form, Select,InputNumber, DatePicker} from 'antd';
+import { Button, Form, Select,InputNumber, DatePicker, notification} from 'antd';
 import React from 'react';
-const { Title } = Typography;
+import axios from "axios";
+import { useState } from 'react';
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 
-const onFinish = (values) => {
+
+const CreateAcc = () => {
+  const [api, contextHolder] = notification.useNotification();
+  const [accountInfo, setAccountInfo] = useState(null);
+
+  async function onFinish(values) {
     console.log('Success:', values);
+    const { type, money, dateCreated, user } = values;
+
+    const body = {
+      type, 
+      money, 
+      dateCreated, 
+      user
+    };
+
+    console.log(body.type);
+
+    const client = axios.create({
+      baseURL: 'https://reqres.in/',
+
+    });
+    const response = await client.post(
+      "/api/users", body
+
+    );
+    console.log("Hola", response);
+if (response.data!=null) {
+  
+    api.info({
+      message: `Notification `,
+      description:  `Account ${response.data.id} created successfully!`,
+    });
+    setAccountInfo(response.data);
+    console.log("Responseeeee: ",accountInfo, response.data);
+
+  }
   };
+
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
 
-const CreateAcc = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   return (
     <div>
+    {contextHolder}
     <Title level={2}>Crear una cuenta</Title>
     <Content
       style={{
@@ -47,8 +86,8 @@ const CreateAcc = () => {
 
     <Form.Item label="Account Type" name="type" rules={[{ required: true }]}>
         <Select>
-        <Select.Option value="demo">Cuenta corriente</Select.Option>
-        <Select.Option value="demo">Cuenta de ahorros</Select.Option>
+        <Select.Option value="corriente">Cuenta corriente</Select.Option>
+        <Select.Option value="ahorros">Cuenta de ahorros</Select.Option>
         </Select>
     </Form.Item>
 
@@ -77,6 +116,29 @@ const CreateAcc = () => {
     </Form.Item>
   </Form>
       
+  {accountInfo?(
+          <>
+          <div>
+          <Title level={4}>Account created: </Title>
+          </div>
+          <div>
+          <Text>ID: {accountInfo.id}</Text>
+          </div>
+          <div>
+          <Text>Type: {accountInfo.type}</Text>
+          </div>
+          <div>
+          <Text>Money: {accountInfo.money}</Text>
+          </div>
+          <div>
+          <Text>Date created: {accountInfo.dateCreated}</Text>
+          </div>
+          <div>
+          <Text>User: {accountInfo.user}</Text>
+          </div>
+          </>
+        ):null}
+
     </Content>
     </div>
   )

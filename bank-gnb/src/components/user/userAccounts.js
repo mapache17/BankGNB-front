@@ -1,10 +1,11 @@
 import { Layout, theme, Typography} from 'antd';
 import { Button, Form, InputNumber} from 'antd';
 import React from 'react';
-const { Title , Text} = Typography;
-const { Content } = Layout;
 import axios from "axios";
 import { useState } from 'react';
+const { Title , Text} = Typography;
+const { Content } = Layout;
+
 
 
 const UserAccounts = () => {
@@ -75,7 +76,7 @@ const UserAccounts = () => {
       </Button>
     </Form.Item>
   </Form>
-  {userAccounts ? (
+  {/* {userAccounts ? (
       <div>
         <Text>Users accounts:</Text>
         {userAccounts.map((account) => (
@@ -85,7 +86,7 @@ const UserAccounts = () => {
           </div>
         ))}
       </div>
-    ) : null}
+    ) : null} */}
     
     </Content>
     </div>

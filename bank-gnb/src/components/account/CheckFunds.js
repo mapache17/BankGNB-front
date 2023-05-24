@@ -1,19 +1,43 @@
 import { Layout, theme, Typography} from 'antd';
 import { Button, Form, InputNumber} from 'antd';
 import React from 'react';
-const { Title } = Typography;
+import axios from "axios";
+import { useState } from 'react';
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 
-const onFinish = (values) => {
-    console.log('Success:', values);
+
+const CheckBalance = () => {
+  const [balanceInfo, setbalanceInfo] = useState(null);
+
+  async function onFinish(idAccount) {
+    console.log('Success:', idAccount);
+
+    console.log(idAccount);
+
+    const client = axios.create({
+      baseURL: 'https://reqres.in/',
+
+    });
+    const response = await client.post(
+      "/api/users", idAccount
+
+    );
+    console.log("Hola", response.data);
+if (response.data!=null) {
+    setbalanceInfo(response.data);
+    console.log("Responseeeee: ", response.data);
+
+  }
   };
+
+
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-
-const CheckBalance = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -61,6 +85,23 @@ const CheckBalance = () => {
     </Form.Item>
   </Form>
       
+  {balanceInfo?(
+          <>
+          <div>
+          <Title level={4}>Account balance: </Title>
+          </div>
+          <div>
+          <Text>ID: {balanceInfo.id}</Text>
+          </div>
+          <div>
+          <Text>Money: {balanceInfo.money}</Text>
+          </div>
+          <div>
+          <Text>User: {balanceInfo.user}</Text>
+          </div>
+          </>
+        ):null}
+
     </Content>
     </div>
   )
