@@ -29,11 +29,11 @@ const TransferMoney = () => {
     console.log(body.id);
 
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
 
     });
     const response = await client.post(
-      "/api/users", body
+      "/transaction/transfer-money", body
 
     );
     console.log("Hola", response);
@@ -111,7 +111,7 @@ if (response.data!=null) {
   {transferenceItems?(
           <>
           <div>
-          <Title level={4}>Transference items: </Title>
+          <Title level={4}>Transference information: </Title>
           </div>
           <div>
           <Text>id: {transferenceItems.id}</Text>

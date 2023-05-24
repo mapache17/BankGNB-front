@@ -11,17 +11,18 @@ const { Content } = Layout;
 const CheckBalance = () => {
   const [balanceInfo, setbalanceInfo] = useState(null);
 
-  async function onFinish(idAccount) {
+  async function onFinish(values) {
+    const {idAccount}=values;
     console.log('Success:', idAccount);
 
     console.log(idAccount);
 
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
 
     });
-    const response = await client.post(
-      "/api/users", idAccount
+    const response = await client.get(
+      `/account/check-balance/${idAccount}`
 
     );
     console.log("Hola", response.data);

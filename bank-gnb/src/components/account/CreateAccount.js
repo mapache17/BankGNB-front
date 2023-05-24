@@ -26,11 +26,11 @@ const CreateAcc = () => {
     console.log(body.type);
 
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
 
     });
     const response = await client.post(
-      "/api/users", body
+      "/account/savings-account", body
 
     );
     console.log("Hola", response);
@@ -41,7 +41,7 @@ if (response.data!=null) {
       description:  `Account ${response.data.id} created successfully!`,
     });
     setAccountInfo(response.data);
-    console.log("Responseeeee: ",accountInfo, response.data);
+    console.log("Responseeeee: ", response.data);
 
   }
   };

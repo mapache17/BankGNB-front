@@ -31,11 +31,11 @@ const DepositMoney = () => {
     console.log(body.moneyAmount);
 
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
 
     });
     const response = await client.post(
-      "/api/users", body
+      "/transaction/deposit-money", body
 
     );
     console.log("Hola", response);

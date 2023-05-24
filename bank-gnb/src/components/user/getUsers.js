@@ -18,10 +18,10 @@ const AllUsers = () => {
 
   async function getAllUsers (){
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
     });
     const response = await client.get(
-      "api/products/3"
+      "/user/all-Users"
     );
     setUsers(response.data);
     console.log("User data", response.data);
@@ -40,9 +40,11 @@ const AllUsers = () => {
       }}
     >
     <Button type="primary" onClick={getAllUsers}>Ver usuarios</Button>
+    <div>
+    <Text>Users:{users?users.data.color:"Null"}</Text>
+    </div>
     </Content>
     
-    <Text>Users:{users?users.data.color:"Null"}</Text>
     </div>
   )
 };
