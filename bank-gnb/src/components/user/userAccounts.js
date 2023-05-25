@@ -82,7 +82,7 @@ const UserAccounts = () => {
         <Title level={4}>User accounts:</Title>
         {userAccounts.map((account) => (
           <div key={account.id}>
-            <Text> -  Id: {account.id},  type: {account.type},  funds: {account.type},  creation date: {account.dateCreated}</Text>
+            <Text> -  Id: {account.id},  type: {account.type},  funds: {account.money},  creation date: {account.dateCreated}</Text>
 
           </div>
         ))}

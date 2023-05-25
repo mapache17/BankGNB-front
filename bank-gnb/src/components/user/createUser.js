@@ -111,7 +111,7 @@ if (response.data!=null) {
             </Button>
           </Form.Item>
         </Form>
-        {userInfo?(
+        {/* {userInfo?(
           <>
           <div>
           <Title level={4}>User created: </Title>
@@ -129,7 +129,7 @@ if (response.data!=null) {
           <Text>Date created: {userInfo.dateCreated}</Text>
           </div>
           </>
-        ):null}
+        ):null} */}
 
 
       </Content>

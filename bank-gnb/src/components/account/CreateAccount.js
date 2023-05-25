@@ -14,10 +14,9 @@ const CreateAcc = () => {
 
   async function onFinish(values) {
     console.log('Success:', values);
-    const { id, type, money, dateCreated, user } = values;
+    const { type, money, dateCreated, user } = values;
 
     const body = {
-      id,
       type, 
       money, 
       dateCreated, 
@@ -85,9 +84,7 @@ if (response.data!=null) {
     autoComplete="off"
   >
 
-<Form.Item label="Account ID" name="id" rules={[{ required: true }]}>
-        <InputNumber />
-    </Form.Item>
+
     <Form.Item label="Account Type" name="type" rules={[{ required: true }]}>
         <Select>
         <Select.Option value="corriente">Cuenta corriente</Select.Option>
