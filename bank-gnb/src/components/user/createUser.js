@@ -30,11 +30,11 @@ const CreateUser = () => {
     console.log(body.dateCreated);
 
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
 
     });
     const response = await client.post(
-      "/api/users", body
+      "/user/savings-user", body
 
     );
     console.log("Hola", response);

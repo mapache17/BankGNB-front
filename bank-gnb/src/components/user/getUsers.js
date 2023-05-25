@@ -41,10 +41,21 @@ const AllUsers = () => {
     >
     <Button type="primary" onClick={getAllUsers}>Ver usuarios</Button>
     <div>
-    <Text>Users:{users?users.data.color:"Null"}</Text>
+    {users ? (
+      <div>
+        <Title level={4}>Users:</Title>
+        {users.map((user) => (
+          <div key={user.id}>
+            <Text> -  Document: {user.document},  name: {user.name},  last name: {user.lastName}</Text>
+
+          </div>
+        ))}
+      </div>
+    ) : null}
     </div>
     </Content>
     
+
     </div>
   )
 };

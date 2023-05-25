@@ -11,15 +11,16 @@ const { Content } = Layout;
 const UserAccounts = () => {
   const [userAccounts, setUserAccounts] = useState(null);
 
-  async function onFinish(idDocument) {
+  async function onFinish(values) {
+    const {idDocument}=values
     console.log('Success:', idDocument);
 
     const client = axios.create({
-      baseURL: 'https://reqres.in/',
+      baseURL: 'http://localhost:9090',
 
     });
-    const response = await client.post(
-      "/api/users", idDocument
+    const response = await client.get(
+    `/user/check-accounts/${idDocument}`
 
     );
     console.log("Hola", response);
@@ -76,17 +77,17 @@ const UserAccounts = () => {
       </Button>
     </Form.Item>
   </Form>
-  {/* {userAccounts ? (
+  {userAccounts ? (
       <div>
-        <Text>Users accounts:</Text>
+        <Title level={4}>User accounts:</Title>
         {userAccounts.map((account) => (
           <div key={account.id}>
-            <Text>{account.type}</Text>
+            <Text> -  Id: {account.id},  type: {account.type},  funds: {account.type},  creation date: {account.dateCreated}</Text>
 
           </div>
         ))}
       </div>
-    ) : null} */}
+    ) : null}
     
     </Content>
     </div>
