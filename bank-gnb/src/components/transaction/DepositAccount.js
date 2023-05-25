@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from 'react';
 const { Title, Text } = Typography;
 const { Content } = Layout;
-  
+
 
 const DepositMoney = () => {
   const [api, contextHolder] = notification.useNotification();

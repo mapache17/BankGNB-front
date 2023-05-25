@@ -95,8 +95,8 @@ if (response.data!=null) {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Date created" name="dateCreated" rules={[{ required: true }]}>
-            <DatePicker />
+          <Form.Item name="dateCreated" label="Date created" rules={[{ required: true }]}>
+            <Input />
           </Form.Item>
 
 

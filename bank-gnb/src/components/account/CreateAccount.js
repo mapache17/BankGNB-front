@@ -1,5 +1,5 @@
 import { Layout, theme, Typography} from 'antd';
-import { Button, Form, Select,InputNumber, DatePicker, notification} from 'antd';
+import { Button, Form, Select,InputNumber, DatePicker, notification, Input} from 'antd';
 import React from 'react';
 import axios from "axios";
 import { useState } from 'react';
@@ -14,9 +14,10 @@ const CreateAcc = () => {
 
   async function onFinish(values) {
     console.log('Success:', values);
-    const { type, money, dateCreated, user } = values;
+    const { id, type, money, dateCreated, user } = values;
 
     const body = {
+      id,
       type, 
       money, 
       dateCreated, 
@@ -38,7 +39,7 @@ if (response.data!=null) {
   
     api.info({
       message: `Notification `,
-      description:  `Account ${response.data.id} created successfully!`,
+      description:  `Account ${body.id} created successfully!`,
     });
     setAccountInfo(response.data);
     console.log("Responseeeee: ", response.data);
@@ -84,6 +85,9 @@ if (response.data!=null) {
     autoComplete="off"
   >
 
+<Form.Item label="Account ID" name="id" rules={[{ required: true }]}>
+        <InputNumber />
+    </Form.Item>
     <Form.Item label="Account Type" name="type" rules={[{ required: true }]}>
         <Select>
         <Select.Option value="corriente">Cuenta corriente</Select.Option>
@@ -95,9 +99,9 @@ if (response.data!=null) {
         <InputNumber />
     </Form.Item>
 
-    <Form.Item label="Date created" name="dateCreated" rules={[{ required: true }]}>
-          <DatePicker />    
-    </Form.Item>
+    <Form.Item name="dateCreated" label="Date created" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
 
     <Form.Item label="User" name="user" rules={[{ required: true }]}>
         <InputNumber />
